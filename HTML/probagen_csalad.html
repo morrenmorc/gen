@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<HTML lang="hu">
+
+<HEAD>
+	<title>próba DL genealógia</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8">
+
+
+	<style nonce="static-nonce">
+		table,
+		td {
+			background-color: yellow;
+		}
+
+		button.openWin {
+			font-size: 16px;
+			background-color: lightblue;
+		}
+	</style>
+
+
+</HEAD>
+
+<BODY>
+	<H2><a href="DLDFgen_info.html">Magyarországi középkori családfák (1400 k.-1526 k.)</a>
+	</H2>
+
+	<TABLE BORDER=5 CELLSPACING=5>
+		<TR>
+			<TD><button class="btno">Abafalva</button>
+			</TD>
+		</TR>
+		<TR>
+			<TD><button class="btno">Abaháza (Zemplén m.)-i cs. - 2</button></TD>
+		</TR>
+		<TR>
+			<TD><button class="btno" type="button">Ábrahámfalva (Szepes m.)-i cs. - 3</button></TD>
+		</TR>
+
+	</TABLE>
+
+	<script nonce="static-nonce">
+
+		const allTables = document.querySelectorAll("table");
+
+		for (const table of allTables) {
+			const tBody = table.tBodies[0];
+			const rows = Array.from(tBody.rows);
+			for (const row of rows) {
+				row.addEventListener("click", function () {
+					console.log(`Row index is: ${this.rowIndex}`);
+					openWin(this.rowIndex + 1);
+				});
+			}
+		}
+		function openWin(x) {
+					
+			console.log(`Opening window for row: ${x}`);
+
+			myWindow = window.open("", "abra");
+
+			myWindow.document.write("<!DOCTYPE html>");
+
+			myWindow.document.write("<html><head><title>Genealógia</title></head><body>");
+			myWindow.document.write("<h2>Genealógia</h2>");
+
+			myWindow.document.write("<iframe src=JPG/" + x + ".jpg width='400' height='300'></iframe><br>");
+			myWindow.document.write("<iframe src=TXT/" + x + " width='400' height='500'></iframe><br>");
+			myWindow.document.write("</body></html>");
+		}
+
+		function closeWin() {
+			if (myWindow) {
+				myWindow.close();
+			}
+		}
+
+		function checkWin() {
+			let text = "";
+			if (!myWindow) {
+				text = "It has never been opened!";
+			} else {
+				if (myWindow.closed) {
+					text = "It is closed.";
+				} else {
+					text = "It is open.";
+				}
+			}
+			document.getElementById("demo").innerHTML = text;
+		}
+	</script>
+
+
+</BODY>
+
+</HTML>
